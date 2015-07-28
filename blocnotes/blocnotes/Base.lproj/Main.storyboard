@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F1077" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="trp-AF-r44">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="trp-AF-r44">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -35,7 +35,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="qJs-3a-Ot0" kind="modal" identifier="edit" id="rht-7S-YQv"/>
+                                            <segue destination="4XT-W5-feW" kind="push" identifier="edit" id="IWG-Om-pPr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -56,22 +56,32 @@
                     <navigationItem key="navigationItem" title="Blocnotes" id="aJ1-Au-fwi">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Mu9-gd-EST">
                             <connections>
-                                <segue destination="qJs-3a-Ot0" kind="modal" identifier="addNewNote" id="XqH-FV-LHd"/>
+                                <segue destination="4XT-W5-feW" kind="push" id="HRm-On-aDc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchController" destination="245-W4-h7D" id="4rO-fa-vej"/>
+                        <outlet property="searchDisplayController" destination="36E-kb-HbE" id="1XS-gH-UbH"/>
                         <outlet property="tableView" destination="245-W4-h7D" id="ur4-E5-wEk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="36E-kb-HbE">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="VCS-uO-DEA"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="2IH-yM-n3H"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="WA1-4j-BsE"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="l2x-zz-lsy"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="729" y="285"/>
         </scene>
         <!--Add Note-->
         <scene sceneID="3EF-bj-z7v">
             <objects>
-                <viewController id="4XT-W5-feW" customClass="CreateNoteViewController" sceneMemberID="viewController">
+                <viewController id="4XT-W5-feW" customClass="NoteViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Nm-wg-JQb"/>
                         <viewControllerLayoutGuide type="bottom" id="unv-JB-Wjx"/>
@@ -80,47 +90,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpa-rv-6fp">
-                                <rect key="frame" x="16" y="72" width="33" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zKV-t1-T0h">
-                                <rect key="frame" x="102" y="72" width="202" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zKV-t1-T0h">
+                                <rect key="frame" x="16" y="72" width="288" height="38"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="L8m-vJ-AxE"/>
+                                    <constraint firstAttribute="height" constant="38" id="wz4-N8-ngz"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="enter note here..." translatesAutoresizingMaskIntoConstraints="NO" id="xy4-2U-PfW">
-                                <rect key="frame" x="16" y="110" width="288" height="438"/>
-                                <color key="backgroundColor" white="1" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xy4-2U-PfW">
+                                <rect key="frame" x="16" y="118" width="288" height="398"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.10196078431372549" green="0.74117647058823533" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.97041177486187846" green="0.97041177486187846" blue="0.97041177486187846" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="zKV-t1-T0h" firstAttribute="top" secondItem="8Nm-wg-JQb" secondAttribute="bottom" constant="8" id="0iv-up-RK6"/>
+                            <constraint firstItem="xy4-2U-PfW" firstAttribute="top" secondItem="zKV-t1-T0h" secondAttribute="bottom" constant="8" id="1wd-tK-1ks"/>
                             <constraint firstItem="xy4-2U-PfW" firstAttribute="leading" secondItem="zTB-0D-JYa" secondAttribute="leadingMargin" id="2du-Lv-8hU"/>
-                            <constraint firstItem="zKV-t1-T0h" firstAttribute="leading" secondItem="Mpa-rv-6fp" secondAttribute="trailing" constant="54" id="4Mt-gJ-l5Z"/>
-                            <constraint firstItem="xy4-2U-PfW" firstAttribute="top" secondItem="Mpa-rv-6fp" secondAttribute="bottom" constant="17" id="7xo-bp-6ej"/>
-                            <constraint firstItem="xy4-2U-PfW" firstAttribute="top" secondItem="zKV-t1-T0h" secondAttribute="bottom" constant="8" id="CXX-Vy-hhp"/>
-                            <constraint firstItem="Mpa-rv-6fp" firstAttribute="leading" secondItem="zTB-0D-JYa" secondAttribute="leadingMargin" id="NHv-rV-PeA"/>
+                            <constraint firstItem="zKV-t1-T0h" firstAttribute="leading" secondItem="zTB-0D-JYa" secondAttribute="leadingMargin" id="2yM-RG-RTq"/>
+                            <constraint firstItem="unv-JB-Wjx" firstAttribute="top" secondItem="xy4-2U-PfW" secondAttribute="bottom" constant="8" id="Ed0-m5-8rn"/>
+                            <constraint firstItem="xy4-2U-PfW" firstAttribute="top" secondItem="zKV-t1-T0h" secondAttribute="bottom" constant="8" id="J8S-2K-ayv"/>
                             <constraint firstItem="xy4-2U-PfW" firstAttribute="trailing" secondItem="zTB-0D-JYa" secondAttribute="trailingMargin" id="PWR-j2-dyy"/>
-                            <constraint firstItem="xy4-2U-PfW" firstAttribute="top" secondItem="zKV-t1-T0h" secondAttribute="bottom" constant="8" id="SV9-RU-a76"/>
-                            <constraint firstAttribute="bottom" secondItem="xy4-2U-PfW" secondAttribute="bottom" constant="20" symbolic="YES" id="ar0-lr-pZw"/>
-                            <constraint firstItem="Mpa-rv-6fp" firstAttribute="top" secondItem="8Nm-wg-JQb" secondAttribute="bottom" constant="8" id="i8h-bk-uZw"/>
+                            <constraint firstItem="xy4-2U-PfW" firstAttribute="top" secondItem="zKV-t1-T0h" secondAttribute="bottom" constant="8" id="ZUp-R4-t57"/>
+                            <constraint firstItem="zKV-t1-T0h" firstAttribute="leading" secondItem="zTB-0D-JYa" secondAttribute="leadingMargin" id="dfd-gX-6u9"/>
+                            <constraint firstItem="zKV-t1-T0h" firstAttribute="trailing" secondItem="zTB-0D-JYa" secondAttribute="trailingMargin" id="q5N-xj-Ypn"/>
                             <constraint firstItem="zKV-t1-T0h" firstAttribute="trailing" secondItem="zTB-0D-JYa" secondAttribute="trailingMargin" id="qG7-JS-cg2"/>
-                            <constraint firstItem="zKV-t1-T0h" firstAttribute="top" secondItem="8Nm-wg-JQb" secondAttribute="bottom" constant="8" id="rr8-1q-qxd"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Add Note" id="7NO-DB-rSV">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="q2y-SX-I2t">
+                            <connections>
+                                <action selector="cancelWasPressed:" destination="4XT-W5-feW" id="DcX-6b-jKD"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="xNb-v2-sqd">
                             <connections>
-                                <action selector="savedTyped:" destination="4XT-W5-feW" id="iiG-Bz-5Jt"/>
+                                <action selector="saveNote:" destination="4XT-W5-feW" id="jof-SB-F1m"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="textView" destination="xy4-2U-PfW" id="48U-ep-05x"/>
                         <outlet property="titleTextField" destination="zKV-t1-T0h" id="ZMF-Fe-ijU"/>
@@ -128,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eFE-lX-2po" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1256" y="-353"/>
+            <point key="canvasLocation" x="1186" y="285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vEx-EW-2la">
@@ -148,24 +163,6 @@
             </objects>
             <point key="canvasLocation" x="202" y="285"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="yGy-gs-xTT">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qJs-3a-Ot0" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.39999999999999963" contentMode="scaleToFill" id="BtA-JF-C55">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="4XT-W5-feW" kind="relationship" relationship="rootViewController" id="jBd-nx-oO6"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZiY-3r-PE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="724" y="-353"/>
-        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -173,6 +170,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rht-7S-YQv"/>
+        <segue reference="IWG-Om-pPr"/>
     </inferredMetricsTieBreakers>
 </document>

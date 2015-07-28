@@ -10,6 +10,7 @@
 
 @interface NoteListViewController : UIViewController
 
+@property (nonatomic, copy) NSArray *listOfNotes;
 
 @end
 

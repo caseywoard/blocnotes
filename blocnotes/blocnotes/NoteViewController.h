@@ -10,8 +10,10 @@
 
 @class Note;
 
-@interface CreateNoteViewController : UIViewController
+@interface NoteViewController : UIViewController
 
 @property (nonatomic, strong) Note *note;
+- (void) shareNote:(id)sender;
+- (void) createNote;
 
 @end

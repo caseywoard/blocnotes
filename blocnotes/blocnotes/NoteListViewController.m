@@ -47,7 +47,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    
+
     //Do I try and load the sharedExtension
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.caseyward.blocnotes.extensionSharing"];
     
@@ -64,6 +64,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"edit"]) {
         UITableViewCell *cell = sender;
@@ -74,7 +75,10 @@
             createNoteViewController.note = [self.filteredList objectAtIndex:indexPath.row];
         }
             createNoteViewController.note = [self.fetchRequestController objectAtIndexPath:indexPath];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    
+    
 }
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

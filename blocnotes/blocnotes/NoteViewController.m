@@ -10,17 +10,23 @@
 #import "CoreDataStack.h"
 #import "Note.h"
 
-@interface NoteViewController ()
+@interface NoteViewController () <UITextViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property(nonatomic, copy) NSArray *rightBarButtonItems;
+
+@property (nonatomic, strong) UITapGestureRecognizer *longPressGesture;
+
 - (IBAction)saveNote:(id)sender;
 - (void) shareNote:(id)sender;
+
 
 @end
 
 @implementation NoteViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +35,10 @@
     if (self.note != nil){
         self.textView.text = self.note.text;
         self.titleTextField.text = self.note.title;
+        self.textView.editable = NO;
+        self.textView.dataDetectorTypes = UIDataDetectorTypeAll;
     }
+    
     //datadetectors property
     //isEditable flag on UI text field, figure out how to trigger this,  based on tap gesture 
     
@@ -44,9 +53,51 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:saveButton, shareButton, nil];
     
     //datadetector setup
+    
+    self.textView.delegate = self;
+    //self.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"viewDidAppear fired.");
+    
+    
+    self.longPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToEdit:)];
+    //[self.tapGesture setNumberOfTapsRequired:1];
+    self.longPressGesture.cancelsTouchesInView = NO;
+    if (self.textView){
+        [self.textView addGestureRecognizer:self.longPressGesture];
+    }
 }
 
 
+-(void) tapToEdit:(UITapGestureRecognizer *) recognizer {
+    if (recognizer.state == UIGestureRecognizerStateRecognized) {
+        if (!self.textView.isEditable) {
+            self.textView.editable = YES;
+            self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
+            NSLog(@"I'm in editing mode");
+        
+        } else {
+            self.textView.editable = NO;
+            self.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+            NSLog(@"I'm NOT in editing mode");
+        }
+    }
+}
+
+
+//-(void) textViewDidBeginEditing:(UITextView *)textView {
+//    self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
+//    NSLog(@"I'm in editing mode");
+//}
+//
+//-(void) textViewDidEndEditing:(UITextView *)textView {
+//    self.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+//    NSLog(@"I'm NOT in editing mode");
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -10,7 +10,7 @@
 
 @class Note;
 
-@interface NoteViewController : UIViewController
+@interface NoteViewController : UIViewController <UITextViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) Note *note;
 - (void) shareNote:(id)sender;

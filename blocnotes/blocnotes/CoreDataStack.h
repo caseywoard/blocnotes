@@ -21,4 +21,9 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+
+//iCloud
+@property (nonatomic,strong) NSURL* modelURL;
+@property (nonatomic,strong) NSURL* storeURL;
+
 @end

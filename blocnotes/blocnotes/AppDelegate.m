@@ -19,42 +19,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self setupAppearance];
-    NSLog(@"hello world");
+    
     //iCloud
-   
-    /*
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    
-    id currentiCloudToken = fileManager.ubiquityIdentityToken;
-    
-    if (currentiCloudToken) {
-        NSData *newTokenData = [NSKeyedArchiver archivedDataWithRootObject: currentiCloudToken];
-        [[NSUserDefaults standardUserDefaults] setObject: newTokenData
-                                                  forKey: @"com.caseyward.blocnotes.blocnotes.UbiquityIdentityToken"];
-        } else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"com.caseyward.blocnotes.blocnotes.UbiquityIdentityToken"];
+    NSURL *ubiq = [[NSFileManager defaultManager]
+                   URLForUbiquityContainerIdentifier:@"iCloud.com.caseyward.blocnotes"];
+    if (ubiq) {
+        NSLog(@"iCloud access at %@", ubiq);
+        // TODO: Load document...
+    } else {
+        NSLog(@"No iCloud access");
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector (ubiquitousKeyValueStoreDidChange:)
-                                                 name: NSUbiquityIdentityDidChangeNotification
-                                               object: nil];
-    
-   
-    
-    if (currentiCloudToken && firstLaunchWithiCloudAvailable) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Choose Storage Option"
-                                                        message: @"Should documents be stored in iCloud and available on all your devices?"
-                                                       delegate: self
-                                              cancelButtonTitle: @"Local Only"
-                                              otherButtonTitles: @"Use iCloud", nil];
-        
-        [alert show];
-        
-    }
-    */
-    
-    //
     
     return YES;
 }
